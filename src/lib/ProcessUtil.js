@@ -1,23 +1,13 @@
-const fs = require('fs')
-const path = require('path')
-
+const { watch } = require('chokidar')
 const spawn = require('cross-spawn')
 const kill = require('tree-kill')
 const exec = require('child_process').exec
 
-const loadPkg = () => {
-  try {
-    const parsedPkg = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'package.json'), 'utf8'))
-    const entryFile = parsedPkg.main
-    return entryFile
-  } catch (err) {
-    return {}
-  }
-}
+const log = require('./log')
 
 module.exports = class ProcessUtil {
-  static start (entryFile = loadPkg()) {
-    console.log(loadPkg());
+  static start (entryFile) {
+
     const cmd = spawn('node', [entryFile], {
       env: {
         FORCE_COLOR: '1',
@@ -26,8 +16,8 @@ module.exports = class ProcessUtil {
       },
       stdio: 'pipe',
     });
-    
-    cmd.stdout.pipe(process.stdout)
+
+    //cmd.stdout.pipe(process.stdout)
     cmd.stderr.pipe(process.stderr)
     cmd.stdin.pipe(process.stdin)
     return cmd
@@ -55,5 +45,33 @@ module.exports = class ProcessUtil {
         resolve(stdout)
       });
     });
+  }
+
+  static watchAndReload (entryFile, watchDir, ignore) {
+    let cmd = ProcessUtil.start(entryFile)
+
+    cmd.stdout.on('data', (data) => {
+      log(`${data}`)
+    });
+
+    cmd.on('error', (err) => {
+      log(err, 'red')
+    });
+
+    watch(watchDir, {
+      ignored: ignore,
+      ignoreInitial: true,
+      ignorePermissionErrors: true,
+      cwd: process.cwd(),
+    })
+      .on('change', async (path, stats) => {
+        if (stats) {
+          log(`[File] ${path} (${stats.size} Byte)`);
+        }
+
+        cmd.kill()
+        await ProcessUtil.kill({ pid: cmd.pid })
+        cmd = ProcessUtil.start(entryFile)
+      });
   }
 }

@@ -1,7 +1,8 @@
 const router = require('express').Router()
 
 router.get('/home', (req, res) => {
-  res.send('home router vv')
-})
+  let id = req.query.id
+  res.send(JSON.parse(id))
+});
 
 module.exports = router

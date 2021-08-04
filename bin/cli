@@ -1,5 +1,10 @@
 #!/usr/bin/env node
 
-const argv = process.argv.slice(2)
+const argv = require('minimist')(process.argv.slice(2));
+const noderel = require('../src/noderel')
 
-console.log(argv);
+noderel({
+  entry: argv.entry,
+  watch: argv.watch ? argv.watch.split(',') : argv.watch,
+  ignore: argv.ignore ? argv.ignore.split(',') : argv.ignore
+});

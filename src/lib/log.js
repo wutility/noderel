@@ -1,4 +1,4 @@
-module.exports = {
+const colors = {
   black: "\x1b[30m",
   red: "\x1b[31m",
   green: "\x1b[32m",
@@ -10,4 +10,8 @@ module.exports = {
   crimson: "\x1b[38m",
   reset: "\x1b[0m",
   blink: "\x1b[5m"
+}
+
+module.exports = function log (msg, color = 'yellow') {
+  console.log(colors[color], msg, colors.reset)
 }
