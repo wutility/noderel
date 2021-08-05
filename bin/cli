@@ -3,8 +3,16 @@
 const argv = require('minimist')(process.argv.slice(2));
 const noderel = require('../src/noderel')
 
+const argToArr = arg => {
+  try {
+    return arg ? arg.split(',') : arg
+  } catch (error) {
+    return null
+  }
+}
+
 noderel({
   entry: argv.entry,
-  watch: argv.watch ? argv.watch.split(',') : argv.watch,
-  ignore: argv.ignore ? argv.ignore.split(',') : argv.ignore
+  watch: argToArr(argv.watch), // --watch app,bin
+  ignore: argToArr(argv.ignore)
 });

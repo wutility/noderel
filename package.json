@@ -1,7 +1,7 @@
 {
   "name": "noderel",
-  "version": "0.0.1",
-  "description": "noderel a development tool for Node.js that automatically restarts the node process when a file is modified.",
+  "version": "0.0.2",
+  "description": "Noderel a development tool for Node.js that automatically restarts the node process when a file is modified.",
   "main": "src/noderel.js",
   "bin": {
     "noderel": "bin/cli",

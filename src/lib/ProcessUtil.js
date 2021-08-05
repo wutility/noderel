@@ -6,9 +6,12 @@ const exec = require('child_process').exec
 const log = require('./log')
 
 module.exports = class ProcessUtil {
+
+  childP
+
   static start (entryFile) {
 
-    const cmd = spawn('node', [entryFile], {
+    this.childP = spawn('node', [entryFile], {
       env: {
         FORCE_COLOR: '1',
         NPM_CONFIG_COLOR: 'always',
@@ -17,10 +20,10 @@ module.exports = class ProcessUtil {
       stdio: 'pipe',
     });
 
-    //cmd.stdout.pipe(process.stdout)
-    cmd.stderr.pipe(process.stderr)
-    cmd.stdin.pipe(process.stdin)
-    return cmd
+    this.childP.stdout.pipe(process.stdout)
+    this.childP.stderr.pipe(process.stderr)
+    this.childP.stdin.pipe(process.stdin)
+    return this.childP
   }
 
   static kill ({ pid, signal = 'SIGTERM' }) {
@@ -30,7 +33,7 @@ module.exports = class ProcessUtil {
   }
 
   static find (processName) {
-    const cmd = (() => {
+    const childP = (() => {
       switch (process.platform) {
         case 'win32': return `tasklist /v /fi "STATUS eq running"`
         case 'darwin': return `ps -ax | grep ${processName}`
@@ -40,7 +43,7 @@ module.exports = class ProcessUtil {
     })();
 
     return new Promise((resolve, reject) => {
-      exec(cmd, (err, stdout, stderr) => {
+      exec(childP, (err, stdout, stderr) => {
         if (err) reject(err)
         resolve(stdout)
       });
@@ -48,14 +51,21 @@ module.exports = class ProcessUtil {
   }
 
   static watchAndReload (entryFile, watchDir, ignore) {
-    let cmd = ProcessUtil.start(entryFile)
+    this.childP = ProcessUtil.start(entryFile)
 
-    cmd.stdout.on('data', (data) => {
-      log(`${data}`)
+    this.childP.on('error', (err) => {
+      log(err, 'red')
+      process.exit(1)
     });
 
-    cmd.on('error', (err) => {
-      log(err, 'red')
+    this.childP.on('exit', (code, signal) => {
+      
+      process.stdin.unpipe(this.childP.stdin)
+
+      if (code === 127) {
+        log(`Failed to start process signal: ${signal}`, 'red')
+        process.exit()
+      }
     });
 
     watch(watchDir, {
@@ -64,14 +74,18 @@ module.exports = class ProcessUtil {
       ignorePermissionErrors: true,
       cwd: process.cwd(),
     })
-      .on('change', async (path, stats) => {
-        if (stats) {
-          log(`[File] ${path} (${stats.size} Byte)`);
-        }
+      .on('change', () => {
 
-        cmd.kill()
-        await ProcessUtil.kill({ pid: cmd.pid })
-        cmd = ProcessUtil.start(entryFile)
+        //log(`[FILE CHANGE] ${path} (${stats.size} Byte)`);
+
+        setTimeout(async () => {        
+
+          this.childP.kill()
+          await ProcessUtil.kill({ pid: this.childP.pid })
+          this.childP = ProcessUtil.start(entryFile)
+
+          log(`\n[${new Date().toLocaleTimeString()}] RESTART DUE CHANGES\n`, 'cyan')
+        }, 100);
       });
   }
 }
