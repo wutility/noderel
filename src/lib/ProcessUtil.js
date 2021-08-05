@@ -1,4 +1,4 @@
-const { watch } = require('chokidar')
+const { watch : watchD } = require('chokidar')
 const spawn = require('cross-spawn')
 const kill = require('tree-kill')
 const exec = require('child_process').exec
@@ -50,8 +50,9 @@ module.exports = class ProcessUtil {
     });
   }
 
-  static watchAndReload (entryFile, watchDir, ignore) {
-    this.childP = ProcessUtil.start(entryFile)
+  static watchAndReload ({ entry, watch, ignore, wait }) {
+
+    this.childP = ProcessUtil.start(entry)
 
     this.childP.on('error', (err) => {
       log(err, 'red')
@@ -59,7 +60,7 @@ module.exports = class ProcessUtil {
     });
 
     this.childP.on('exit', (code, signal) => {
-      
+
       process.stdin.unpipe(this.childP.stdin)
 
       if (code === 127) {
@@ -68,7 +69,7 @@ module.exports = class ProcessUtil {
       }
     });
 
-    watch(watchDir, {
+    watchD(watch, {
       ignored: ignore,
       ignoreInitial: true,
       ignorePermissionErrors: true,
@@ -78,14 +79,14 @@ module.exports = class ProcessUtil {
 
         //log(`[FILE CHANGE] ${path} (${stats.size} Byte)`);
 
-        setTimeout(async () => {        
+        setTimeout(async () => {
 
           this.childP.kill()
           await ProcessUtil.kill({ pid: this.childP.pid })
-          this.childP = ProcessUtil.start(entryFile)
+          this.childP = ProcessUtil.start(entry)
 
           log(`\n[${new Date().toLocaleTimeString()}] RESTART DUE CHANGES\n`, 'cyan')
-        }, 100);
-      });
+        }, wait);
+      })
   }
 }

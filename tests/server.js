@@ -3,8 +3,8 @@ const app = express()
 const port = 3000
 
 app.get('/', (req, res) => {  
-  console.log('ssdsd')
-  res.send('zeze')
+  console.log('zezezesdsd')
+  res.send('aaazaaaaaaazazazazazaqsqsqsqs')
 })
 
 app.use('/', require('./routes/index'))

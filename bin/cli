@@ -14,5 +14,6 @@ const argToArr = arg => {
 noderel({
   entry: argv.entry,
   watch: argToArr(argv.watch), // --watch app,bin
-  ignore: argToArr(argv.ignore)
+  ignore: argToArr(argv.ignore),
+  wait: argv.wait
 });

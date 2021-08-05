@@ -1,5 +1,5 @@
 # NodeRel
-Is a tool that automatically restarting the node application when file changes.
+NodeRel is a tool that automatically restarting the node application when file changes.
 
 ![][version] ![][downloads] ![][license]
 
@@ -18,7 +18,7 @@ noderel --entry bin/server.js --watch routes,app --wait 150 --verbose alse
 ```js
 const noderel = require('noderel')
 
-noderel(configuration: Object): void;
+noderel(configuration?: Object): void
 ```
 
 ## Configuration
