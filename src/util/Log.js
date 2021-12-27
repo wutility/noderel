@@ -12,6 +12,10 @@ const colors = {
   blink: "\x1b[5m"
 }
 
-module.exports = function log (msg, color = 'yellow') {
+/**
+ * @param {String} msg 
+ * @param {String} color 
+ */
+module.exports = function Log (msg, color = 'yellow') {
   console.log(colors[color], msg, colors.reset)
 }

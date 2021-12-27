@@ -1,7 +1,11 @@
-const fs = require('fs')
-const path = require('path')
+const fs = require('fs');
+const path = require('path');
 
-module.exports = function loadFile (entryFile) {
+/**
+ * @param {String} entryFile 
+ * @returns {String} filePath
+ */
+module.exports = function ResolveFilePath(entryFile) {
   try {
     if (entryFile) {
       return path.resolve(process.cwd(), entryFile);

@@ -1,6 +1,6 @@
 {
   "name": "noderel",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Noderel a development tool for Node.js that automatically restarts the node process when a file is modified.",
   "main": "src/noderel.js",
   "bin": {
@@ -11,12 +11,13 @@
     "access": "public"
   },
   "scripts": {
-    "start": "node bin/cli"
+    "start": "node bin/cli",
+    "tests": "node bin/cli tests/server.js"
   },
   "dependencies": {
-    "chokidar": "^3.5.2",
+    "chokidar": "^3.5.3",
     "cross-spawn": "^7.0.3",
-    "minimist": "^1.2.5",
+    "minimist": "^1.2.6",
     "tree-kill": "^1.2.2"
   },
   "devDependencies": {

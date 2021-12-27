@@ -11,7 +11,7 @@ npm install --save-dev noderel
 # CLI
 ```js
 // all configs are optional 
-noderel --entry bin/server.js --watch routes,app --wait 150 --verbose alse
+noderel --entry bin/server.js --watch routes,app --wait 150 --verbose false
 ```
 
 # API
