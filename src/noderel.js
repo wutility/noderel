@@ -20,9 +20,9 @@ module.exports = async function noderel(config) {
     .on('change', () => {
       setTimeout(async () => {
 
-        childProcess.kill()
-        await KillProcess(childProcess.pid)
-        childProcess = StartProcess(config.entry)
+        childProcess.kill();
+        await KillProcess(childProcess.pid);
+        childProcess = StartProcess(config.entry);
 
         Log(`\n[${new Date().toLocaleTimeString()}] RESTART DUE CHANGES\n`, 'cyan');
       }, config.wait);
