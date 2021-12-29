@@ -1,7 +1,6 @@
 const kill = require('tree-kill');
 
 /**
- * 
  * @param {String} pid 
  * @param {String} signal 
  * @returns {Promise}

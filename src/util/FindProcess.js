@@ -1,7 +1,6 @@
 const exec = require('child_process').exec;
 
 /**
- * 
  * @param {String} processName 
  * @returns 
  */

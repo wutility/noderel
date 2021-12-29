@@ -16,7 +16,7 @@ module.exports = async function noderel(config) {
 
   let childProcess = StartProcess(config.entry);
 
-  WatchProcess(childProcess, cfg)
+  WatchProcess(cfg)
     .on('change', () => {
       setTimeout(async () => {
 
@@ -24,17 +24,16 @@ module.exports = async function noderel(config) {
         await KillProcess(childProcess.pid);
         childProcess = StartProcess(config.entry);
 
-        Log(`\n[${new Date().toLocaleTimeString()}] RESTART DUE CHANGES\n`, 'cyan');
+        Log('cyan', `\n[${new Date().toLocaleTimeString()}] RESTART DUE CHANGES\n`);
       }, config.wait);
     });
 
-  process.on('SIGTERM', function () {
-    console.error(`Process SIGTERM`);
-  });
-
-  process.on('exit', function () {
-    console.error(`Process exit with code: ${code}`);
-  });
+  ['unhandledRejection', 'uncaughtExceptionMonitor', 'uncaughtException', 'rejectionHandled',
+    'beforeExit', 'disconnect', 'SIGTERM', 'exit'].forEach(evt => {
+      process.on('SIGTERM', (code, signal) => {
+        console.error(`Process event --> `, code, signal);
+      });
+    });
 
   // Print some infos on start process
   console.log(

@@ -16,6 +16,6 @@ const colors = {
  * @param {String} msg 
  * @param {String} color 
  */
-module.exports = function Log (msg, color = 'yellow') {
-  console.log(colors[color], msg, colors.reset)
+module.exports = function Log (color, msg) {
+  console.log(colors[color || 'yellow'], ...msg, colors.reset)
 }
