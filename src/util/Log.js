@@ -13,9 +13,9 @@ const colors = {
 }
 
 /**
- * @param {String} msg 
  * @param {String} color 
+ * @param {String[]} messages 
  */
-module.exports = function Log (color, msg) {
-  console.log(colors[color || 'yellow'], ...msg, colors.reset)
+module.exports = function Log (color, message) {
+  console.log(colors[color || 'yellow'], message, colors.reset)
 }

@@ -22,7 +22,7 @@ module.exports = function StartProcess(entryFile) {
   ['spawn', 'close', 'message', 'disconnect', 'error', 'exit'].forEach(evt => {
     childProcess.on(evt, (code, signal) => {
 
-      Log('yellow', '[Event] ', evt, code, signal);
+      Log('yellow', `[Event] => ${evt}, ${code}, ${signal}`);
 
       if (evt === 'error') {
         Log("err", code, signal);

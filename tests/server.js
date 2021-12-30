@@ -4,8 +4,8 @@ const port = 3000
 
 app.get('/', (req, res) => {  
   console.log('zezezesdsd')
-  res.send('vvsss'
-})
+  res.send('vvsss')
+});
 
 app.use('/', require('./routes/index'))
 

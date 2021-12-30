@@ -27,7 +27,8 @@
     "monitor",
     "process",
     "reload",
-    "watch"
+    "watch",
+    "hot reload"
   ],
   "author": "Haikel Fazzani",
   "license": "MIT"
