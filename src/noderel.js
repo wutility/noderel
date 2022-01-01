@@ -36,7 +36,7 @@ module.exports = async function noderel(config) {
   ['SIGQUIT', 'SIGINT', 'SIGTERM', 'EXIT'].forEach(evt => {
 
     process.on(evt, async (signal) => {
-      Log('magenta', `[Process ${evt} {${process.pid} - ${childProcess.pid}}] signal: ${signal}`);
+      Log('cyan', `[Process ${evt} {${process.pid} - ${childProcess.pid}}] signal: ${signal}`);
 
       childProcess.kill();
       await KillProcess(childProcess.pid);
