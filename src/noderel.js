@@ -28,12 +28,21 @@ module.exports = async function noderel(config) {
       }, config.wait);
     });
 
-  ['unhandledRejection', 'uncaughtExceptionMonitor', 'uncaughtException', 'rejectionHandled',
-    'beforeExit', 'disconnect', 'SIGTERM', 'exit'].forEach(evt => {
-      process.on('SIGTERM', (code, signal) => {
-        console.error(`Process event --> `, code, signal);
-      });
+  /**
+   * SIGINT: CTRL+C
+   * SIGQUIT: Keyboard quit
+   * SIGTERM: kill command
+   */
+  ['SIGQUIT', 'SIGINT', 'SIGTERM', 'EXIT'].forEach(evt => {
+
+    process.on(evt, async (signal) => {
+      Log('magenta', `[Process ${evt} {${process.pid} - ${childProcess.pid}}] signal: ${signal}`);
+
+      childProcess.kill();
+      await KillProcess(childProcess.pid);
+      setTimeout(() => process.exit(1), 1000);
     });
+  });
 
   // Print some infos on start process
   console.log(

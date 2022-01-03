@@ -20,9 +20,9 @@ module.exports = function StartProcess(entryFile) {
   childProcess.stdin.pipe(process.stdin);
 
   ['spawn', 'close', 'message', 'disconnect', 'error', 'exit'].forEach(evt => {
-    childProcess.on(evt, (code, signal) => {
+    childProcess.on(evt, (signal) => {
 
-      if(code || signal) Log('cyan', `[Event ${evt}] => code: ${code}, signal: ${signal}`);
+      if(code || signal) Log('cyan', `[ChildProcess ${evt}] signal: ${signal}`);
 
       if (evt === 'error') {
         Log("err", code, signal);
