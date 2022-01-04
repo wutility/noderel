@@ -5,6 +5,8 @@ const WatchProcess = require('./util/WatchProcess');
 const Log = require('./util/Log');
 const ResolveFilePath = require('./util/ResolveFilePath');
 
+const pkg = require('../package.json');
+
 module.exports = async function noderel(config) {
 
   const cfg = {
@@ -24,7 +26,7 @@ module.exports = async function noderel(config) {
         await KillProcess(childProcess.pid);
         childProcess = StartProcess(config.entry);
 
-        Log('cyan', `\n[${new Date().toLocaleTimeString()}] RESTART DUE CHANGES\n`);
+        Log('red', `\n[${new Date().toLocaleTimeString()}] RESTART DUE CHANGES\n`);
       }, config.wait);
     });
 
@@ -36,7 +38,9 @@ module.exports = async function noderel(config) {
   ['SIGQUIT', 'SIGINT', 'SIGTERM', 'EXIT'].forEach(evt => {
 
     process.on(evt, async (signal) => {
-      Log('cyan', `[Process ${evt} {${process.pid} - ${childProcess.pid}}] signal: ${signal}`);
+      Log('yellow', `> [PARENT PROCESS] SIGNAL: ${signal} | ${new Date().toLocaleTimeString()}`);
+      Log('yellow', `> [Killed PROCESS ID] ${process.pid}`);
+      Log('yellow', `> [Killed PROCESS ID] ${childProcess.pid}`);
 
       childProcess.kill();
       await KillProcess(childProcess.pid);
@@ -45,6 +49,8 @@ module.exports = async function noderel(config) {
   });
 
   // Print some infos on start process
+  console.log('\x1b[33m',`\n > [NODEREL] v${pkg.version}\x1b[0m`);
+
   console.log(
     '\x1b[33m',
     `\n > [${new Date().toLocaleTimeString()}]\x1b[0m`,
