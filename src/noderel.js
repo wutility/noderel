@@ -26,7 +26,7 @@ module.exports = async function noderel(config) {
         await KillProcess(childProcess.pid);
         childProcess = StartProcess(config.entry);
 
-        Log('red', `\n[${new Date().toLocaleTimeString()}] RESTART DUE CHANGES\n`);
+        Log('cyan', `\n[${new Date().toLocaleTimeString()}] RESTART DUE CHANGES\n`);
       }, config.wait);
     });
 
@@ -38,9 +38,9 @@ module.exports = async function noderel(config) {
   ['SIGQUIT', 'SIGINT', 'SIGTERM', 'EXIT'].forEach(evt => {
 
     process.on(evt, async (signal) => {
-      Log('yellow', `> [PARENT PROCESS] SIGNAL: ${signal} | ${new Date().toLocaleTimeString()}`);
-      Log('yellow', `> [Killed PROCESS ID] ${process.pid}`);
-      Log('yellow', `> [Killed PROCESS ID] ${childProcess.pid}`);
+      Log('magenta', `\n> [SIGNAL: ${signal}] ${new Date().toLocaleTimeString()}`);
+      Log('magenta', `> [Killed PROCESS ID] ${process.pid}`);
+      Log('magenta', `> [Killed PROCESS ID] ${childProcess.pid}\n`);
 
       childProcess.kill();
       await KillProcess(childProcess.pid);
@@ -49,12 +49,12 @@ module.exports = async function noderel(config) {
   });
 
   // Print some infos on start process
-  console.log('\x1b[33m',`\n > [NODEREL] v${pkg.version}\x1b[0m`);
+  Log('cyan',`\n > [NODEREL]\x1b[0m v${pkg.version}`);
 
   console.log(
     '\x1b[33m',
     `\n > [${new Date().toLocaleTimeString()}]\x1b[0m`,
-    '\x1b[32mNodeRel start running\x1b[33m'
+    'NodeRel Start Running\x1b[33m'
   );
 
   console.log('\x1b[33m', '> [START COMMAND]\x1b[0m', `node ${config.entry || ResolveFilePath(config.entry)}`)
