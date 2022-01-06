@@ -31,6 +31,9 @@ noderel(configuration?: Object): void
 |wait      | `100`                            | Realod time between changes (ms). |
 |verbose   | `true`                          | Show logs |
 
+## Capture
+![Capture](capture.png)
+
 # License
 MIT
 

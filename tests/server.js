@@ -3,8 +3,8 @@ const app = express()
 const port = 3000
 
 app.get('/', (req, res) => {  
-  console.log('zezezesdsd')
-  res.send('vvsss')
+  console.log('Hello NodeRel from console')
+  res.send('Hello NodeRel')
 });
 
 app.use('/', require('./routes/index'))
