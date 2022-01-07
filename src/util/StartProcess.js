@@ -15,29 +15,34 @@ module.exports = function StartProcess(entryFile) {
     stdio: 'pipe',
   });
 
+  childProcess.stdin.on('data', (data) => {
+    console.log(`Received chunk ${data}`);
+  });
+
   childProcess.stdout.pipe(process.stdout);
   childProcess.stderr.pipe(process.stderr);
   childProcess.stdin.pipe(process.stdin);
 
-  ['SPAWN', 'CLOSE', 'MESSAGE', 'disconnect', 'ERROR', 'EXIT'].forEach(evt => {
+  ['spawn', 'close', 'message', 'disconnect', 'error', 'exit'].forEach(evt => {
     childProcess.on(evt, (code, signal) => {
 
-      if(code || signal) Log('bgYellow', `> [Child ${evt}] => code: ${code}, signal: ${signal}`);
+      if(code || signal) Log('cyan', `> [CHILD PROCESS] ${evt}: ${signal}`);
 
-      if (evt === 'ERROR') {
+      if (evt === 'error') {
         Log("err", code, signal);
+        childProcess.kill();
         process.exit(1);
       }
 
-      if (evt === 'EXIT') {
+      if (evt === 'exit') {
         process.stdin.unpipe(childProcess.stdin);
 
         if (code === 127) {
           Log('red', `Failed to start process signal: ${signal}`);
+          childProcess.kill();
           process.exit();
         }
       }
-
     });
   });
 

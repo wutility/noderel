@@ -35,10 +35,9 @@ module.exports = async function noderel(config) {
    * SIGQUIT: Keyboard quit
    * SIGTERM: kill command
    */
-  ['SIGQUIT', 'SIGINT', 'SIGTERM', 'EXIT'].forEach(evt => {
-
+  ['SIGQUIT', 'SIGINT', 'SIGTERM', 'exit', 'message'].forEach(evt => {
     process.on(evt, async (signal) => {
-      Log('red', `\n> [SIGNAL: ${signal}] ${new Date().toLocaleTimeString()}`);
+      Log('red', `\n> [SIGNAL: ${signal}] ${evt}: ${new Date().toLocaleTimeString()}`);
       Log('magenta', `X [Killed PROCESS ID] ${process.pid}`);
       Log('magenta', `X [Killed PROCESS ID] ${childProcess.pid}\n`);
 
@@ -49,7 +48,8 @@ module.exports = async function noderel(config) {
   });
 
   // Print some infos on start process
-  Log('cyan',`\n > [NODEREL]\x1b[0m v${pkg.version}`);
+  Log('cyan',`> [NODEREL]\x1b[0m v${pkg.version}`);
+  Log('cyan',`> [NODE]\x1b[0m ${process.version}`);
 
   console.log(
     '\x1b[33m',

@@ -28,7 +28,7 @@
     "process",
     "reload",
     "watch",
-    "hot reload"
+    "nodemon"
   ],
   "author": "Haikel Fazzani",
   "license": "MIT"
