@@ -1,7 +1,8 @@
 # NodeRel
 NodeRel is a tool that automatically restarting the node application when file changes.
 
-![][version] ![][downloads] ![][license]
+[downloads]: https://badgen.net/npm/dt/noderel
+[version]:       http://img.shields.io/npm/v/noderel.svg?style=flat-square
 
 # Installation
 ```shell
@@ -9,8 +10,8 @@ npm install --save-dev noderel
 ```
 
 # CLI
-```js
-// all configs are optional 
+```shell
+# all configs are optional 
 noderel --entry bin/server.js --watch routes,app --wait 150 --verbose false
 ```
 
@@ -36,8 +37,5 @@ noderel(configuration?: Object): void
 
 # License
 MIT
-
-[downloads]: https://badgen.net/npm/dt/noderel
-[version]:       http://img.shields.io/npm/v/noderel.svg?style=flat-square
 
 [license]: https://badgen.net/npm/license/noderel

@@ -15,10 +15,6 @@ module.exports = function StartProcess(entryFile) {
     stdio: 'pipe',
   });
 
-  childProcess.stdin.on('data', (data) => {
-    console.log(`Received chunk ${data}`);
-  });
-
   childProcess.stdout.pipe(process.stdout);
   childProcess.stderr.pipe(process.stderr);
   childProcess.stdin.pipe(process.stdin);
