@@ -31,6 +31,7 @@ noderel(configuration?: Object): void
 |ignore   | `/node_modules\|(^\|[\/\\])\../` | which\'s files or folders should be ignored |
 |wait      | `100`                            | Realod time between changes (ms). |
 |verbose   | `true`                          | Show logs |
+|allow-restart | `false` | allow restart when typing `rs`|
 
 ## Capture
 ![Capture](capture.png)

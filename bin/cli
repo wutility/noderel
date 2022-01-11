@@ -15,5 +15,6 @@ noderel({
   entry: argv.entry,
   watch: argToArr(argv.watch), // --watch app,bin
   ignore: argToArr(argv.ignore),
-  wait: argv.wait
+  wait: argv.wait,
+  allowRestart: argv['allow-restart']
 });

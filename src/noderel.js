@@ -13,7 +13,8 @@ module.exports = async function noderel(config) {
     entry: ResolveFilePath(config.entry),
     watch: config.watch || '.',
     ignore: config.ignore || '**/{node_modules,dist,temp,.git}/**',
-    wait: config.wait ? parseInt(config.wait, 10) : 100
+    wait: config.wait ? parseInt(config.wait, 10) : 100,
+    allowRestart: config.allowRestart ? JSON.parse(config.allowRestart) : false
   };
 
   let childProcess = StartProcess(config.entry);
@@ -29,6 +30,20 @@ module.exports = async function noderel(config) {
         Log('cyan', `\n[${new Date().toLocaleTimeString()}] RESTART DUE CHANGES\n`);
       }, config.wait);
     });
+
+  if (config.allowRestart) {
+    process.stdin.resume();
+    process.stdin.setEncoding('utf8');
+
+    process.stdin.on('data', async data => {
+      if (data.toString().trim().toLowerCase() === 'rs') {
+        childProcess.kill();
+        await KillProcess(childProcess.pid);
+        childProcess = StartProcess(config.entry);
+        Log('green', `\n>[${new Date().toLocaleTimeString()}] NODEREL RESTART\n`);
+      }
+    });
+  }
 
   /**
    * SIGINT: CTRL+C
@@ -48,8 +63,8 @@ module.exports = async function noderel(config) {
   });
 
   // Print some infos on start process
-  Log('cyan',`> [NODEREL]\x1b[0m v${pkg.version}`);
-  Log('cyan',`> [NODE]\x1b[0m ${process.version}`);
+  Log('cyan', `> [NODEREL]\x1b[0m v${pkg.version}`);
+  Log('cyan', `> [NODE]\x1b[0m ${process.version}`);
 
   console.log(
     '\x1b[33m',
