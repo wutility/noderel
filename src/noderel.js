@@ -36,11 +36,12 @@ module.exports = async function noderel(config) {
     process.stdin.setEncoding('utf8');
 
     process.stdin.on('data', async data => {
-      if (data.toString().trim().toLowerCase() === 'rs') {
+      const stdin = data.toString().trim().toLowerCase();
+      if (stdin === 'rs') {
         childProcess.kill();
         await KillProcess(childProcess.pid);
         childProcess = StartProcess(config.entry);
-        Log('green', `\n>[${new Date().toLocaleTimeString()}] NODEREL RESTART\n`);
+        Log('green', `\n>[${new Date().toLocaleTimeString()}] NODEREL RESTARTING\n`);
       }
     });
   }
