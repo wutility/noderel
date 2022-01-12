@@ -56,9 +56,13 @@ module.exports = async function noderel(config) {
       Log('magenta', `X [Killed PROCESS ID] ${process.pid}`);
       Log('magenta', `X [Killed PROCESS ID] ${childProcess.pid}\n`);
 
-      childProcess.kill();
-      await KillProcess(childProcess.pid);
-      setTimeout(() => process.exit(1), 1000);
+      process.removeAllListeners('data');
+
+      setTimeout(() => {
+        childProcess.kill();
+        await KillProcess(childProcess.pid);
+        process.exit(1);
+      }, 100);
     });
   });
 
