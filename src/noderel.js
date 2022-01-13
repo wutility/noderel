@@ -59,9 +59,10 @@ module.exports = async function noderel(config) {
 
       process.removeAllListeners('data');
 
+      childProcess.kill();
+      await KillProcess(childProcess.pid);
+      
       setTimeout(() => {
-        childProcess.kill();
-        await KillProcess(childProcess.pid);
         process.exit(1);
       }, 100);
     });
