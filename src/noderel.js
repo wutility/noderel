@@ -7,6 +7,9 @@ const ResolveFilePath = require('./util/ResolveFilePath');
 
 const pkg = require('../package.json');
 
+/**
+ * @param {Object} config 
+ */
 module.exports = async function noderel(config) {
 
   const cfg = {
@@ -14,6 +17,7 @@ module.exports = async function noderel(config) {
     watch: config.watch || '.',
     ignore: config.ignore || '**/{node_modules,dist,temp,.git}/**',
     wait: config.wait ? parseInt(config.wait, 10) : 100,
+    verbose: config.verbose ? JSON.parse(config.verbose) : false,
     allowRestart: config.allowRestart ? JSON.parse(config.allowRestart) : false
   };
 
