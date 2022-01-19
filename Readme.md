@@ -1,4 +1,4 @@
-# NodeRel
+# ↻ ♾️ NodeRel
 NodeRel is a tool that automatically restarting the node application when file changes.
 
 ![downloads](https://badgen.net/npm/dt/noderel) ![version](http://img.shields.io/npm/v/noderel.svg?style=flat-square)
@@ -16,13 +16,13 @@ npm install -g noderel
 # yarn global add noderel
 ```
 
-# CLI
+## CLI
 ```shell
 # all configs are optional 
 noderel --entry bin/server.js --watch routes,app --wait 150 --verbose=false --allow-restart=true
 ```
 
-# API
+## API
 ```js
 const noderel = require('noderel');
 
@@ -40,7 +40,7 @@ noderel(configuration?: Object): void
 |verbose   | `true`                          | Show logs |
 |allow-restart | `false` | allow restart when typing `rs`|
 
-# Dependencies
+## Dependencies
 - chokidar
 - cross-spawn
 - minimist
