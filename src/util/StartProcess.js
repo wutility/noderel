@@ -21,9 +21,6 @@ module.exports = function StartProcess(entryFile) {
 
   ['spawn', 'close', 'message', 'disconnect', 'error', 'exit'].forEach(evt => {
     childProcess.on(evt, (code, signal) => {
-
-      if(code || signal) Log('cyan', `> [CHILD PROCESS] ${evt}: ${signal}`);
-
       if (evt === 'error') {
         Log("err", code, signal);
         childProcess.kill();

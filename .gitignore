@@ -11,3 +11,4 @@ testr/
 
 yarn.lock
 package-lock.json
+noderel.json
