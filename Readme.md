@@ -40,11 +40,19 @@ noderel(configuration?: Object): void
 |verbose   | `true`                          | Show logs |
 |allow-restart | `false` | allow restart when typing `rs`|
 
-## Dependencies
-- chokidar
-- cross-spawn
-- minimist
-- tree-kill
+## Config file
+```json
+// noderel.json
+// A config file can take any of the command line arguments as JSON key values, for example:
+{
+  "entry": "tests/server.js",
+  "watch": ["src", "bin"],
+  "ignore": "**/{node_modules,tests,dist,temp,.git}/*",
+  "wait": 150,
+  "verbose": true,
+  "allowRestart": false
+}
+```
 
 ## Capture
 ![Capture](capture.png)

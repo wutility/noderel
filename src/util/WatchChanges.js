@@ -1,6 +1,6 @@
 const { watch: watchD } = require('chokidar');
 
-module.exports = function WatchProcess({ watch, ignore }) {
+module.exports = function WatchChanges({ watch, ignore }) {
   return watchD(watch, {
     ignored: ignore,
     ignoreInitial: true,

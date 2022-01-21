@@ -1,44 +1,33 @@
 const StartProcess = require('./util/StartProcess');
 const KillProcess = require('./util/KillProcess');
-const WatchProcess = require('./util/WatchProcess');
+const WatchChanges = require('./util/WatchChanges');
 
 const Log = require('./util/Log');
-const ResolveFilePath = require('./util/ResolveFilePath');
+const ResolveEntryFile = require('./util/ResolveEntryFile');
 
 const pkg = require('../package.json');
+const LoadConfig = require('./util/LoadConfig');
 
 /**
- * @param {Object} config 
+ * @param {Object} cliParams 
  */
-module.exports = async function noderel(config) {
-  const configJsonFile = require(process.cwd() + '/noderel.json');
+module.exports = async function noderel(cliParams) {
+  const config = LoadConfig(cliParams);
+  let childProcess = StartProcess(config.entry);
 
-  const initConfig = configJsonFile
-    ? configJsonFile
-    : {
-      entry: ResolveFilePath(config.entry),
-      watch: config.watch || '.',
-      ignore: config.ignore || '**/{node_modules,dist,temp,.git}/**',
-      wait: config.wait ? parseInt(config.wait, 10) : 100,
-      verbose: /true|false/i.test(config.verbose),
-      allowRestart: /true|false/i.test(config.allowRestart)
-    };
-
-  let childProcess = StartProcess(initConfig.entry);
-
-  WatchProcess(initConfig)
+  WatchChanges(config)
     .on('change', () => {
       setTimeout(async () => {
 
         childProcess.kill();
         await KillProcess(childProcess.pid);
-        childProcess = StartProcess(initConfig.entry);
+        childProcess = StartProcess(config.entry);
 
         Log('cyan', `\n[${new Date().toLocaleTimeString()}] RESTART DUE CHANGES\n`);
-      }, initConfig.wait);
+      }, config.wait);
     });
 
-  if (initConfig.allowRestart) {
+  if (config.allowRestart) {
     process.stdin.resume();
     process.stdin.setEncoding('utf8');
 
@@ -48,7 +37,7 @@ module.exports = async function noderel(config) {
       if (stdin === 'rs') {
         childProcess.kill();
         await KillProcess(childProcess.pid);
-        childProcess = StartProcess(initConfig.entry);
+        childProcess = StartProcess(config.entry);
         Log('green', `\n> [${new Date().toLocaleTimeString()}] NODEREL RESTARTING\n`);
       }
     });
@@ -86,6 +75,6 @@ module.exports = async function noderel(config) {
     'NodeRel Start Running\x1b[33m'
   );
 
-  console.log('\x1b[33m', '> [START COMMAND]\x1b[0m', `node ${initConfig.entry || ResolveFilePath(initConfig.entry)}`)
-  console.log('\x1b[33m', '> [START WATCHING]\x1b[0m', initConfig.watch + '\n')
+  console.log('\x1b[33m', '> [START COMMAND]\x1b[0m', `node ${config.entry || ResolveEntryFile(config.entry)}`)
+  console.log('\x1b[33m', '> [START WATCHING]\x1b[0m', config.watch + '\n')
 }

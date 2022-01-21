@@ -5,7 +5,7 @@ const path = require('path');
  * @param {String} entryFile 
  * @returns {String} filePath
  */
-module.exports = function ResolveFilePath(entryFile) {
+module.exports = function ResolveEntryFile(entryFile) {
   try {
     if (entryFile) {
       return path.resolve(process.cwd(), entryFile);
