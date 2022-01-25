@@ -50,7 +50,7 @@ noderel(configuration?: Object): void
   "ignore": "**/{node_modules,tests,dist,temp,.git}/*",
   "wait": 150,
   "verbose": true,
-  "allowRestart": false
+  "allowRestart": false // allow restart when typing `rs`
 }
 ```
 
