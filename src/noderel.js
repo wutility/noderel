@@ -59,9 +59,9 @@ module.exports = async function noderel(cliParams) {
       childProcess.kill();
       await KillProcess(childProcess.pid);
 
-      setTimeout(() => {
-        process.exit(1);
-      }, 100);
+      Log('yellow', `\n > [${new Date().toLocaleTimeString()}]\x1b[0m NodeRel End Running`);
+
+      setTimeout(() => { process.exit(1); }, 100);
     });
   });
 
