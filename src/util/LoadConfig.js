@@ -9,8 +9,8 @@ module.exports = function LoadConfig(config) {
       watch: config.watch || '.',
       ignore: config.ignore || '**/{node_modules,dist,temp,.git}/**',
       wait: config.wait ? parseInt(config.wait, 10) : 100,
-      verbose: /true|false/i.test(config.verbose),
-      allowRestart: /true|false/i.test(config.allowRestart)
+      verbose: config.verbose ? JSON.parse(config.verbose) : true,
+      allowRestart: config.allowRestart ? JSON.parse(config.allowRestart) : true
     }
   }
 }

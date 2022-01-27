@@ -1,6 +1,6 @@
-const StartProcess = require('./util/StartProcess');
-const KillProcess = require('./util/KillProcess');
-const WatchChanges = require('./util/WatchChanges');
+const StartProcess = require('./process/StartProcess');
+const KillProcess = require('./process/KillProcess');
+const WatchChanges = require('./monitor/WatchChanges');
 
 const Log = require('./util/Log');
 const ResolveEntryFile = require('./util/ResolveEntryFile');
@@ -11,17 +11,16 @@ const LoadConfig = require('./util/LoadConfig');
 /**
  * @param {Object} cliParams 
  */
-module.exports = async function noderel(cliParams) {
+module.exports = function noderel(cliParams) {
   const config = LoadConfig(cliParams);
-  let childProcess = StartProcess(config.entry);
+  let spawnProcess = StartProcess(config.entry);
 
   WatchChanges(config)
     .on('change', () => {
-      setTimeout(async () => {
+      setTimeout(() => {
 
-        childProcess.kill();
-        await KillProcess(childProcess.pid);
-        childProcess = StartProcess(config.entry);
+        KillProcess(spawnProcess.pid);
+        spawnProcess = StartProcess(config.entry);
 
         Log('cyan', `\n[${new Date().toLocaleTimeString()}] RESTART DUE CHANGES\n`);
       }, config.wait);
@@ -31,13 +30,12 @@ module.exports = async function noderel(cliParams) {
     process.stdin.resume();
     process.stdin.setEncoding('utf8');
 
-    process.stdin.on('data', async data => {
+    process.stdin.on('data', data => {
       const stdin = data.toString().trim().toLowerCase();
-      console.log(stdin);
+
       if (stdin === 'rs') {
-        childProcess.kill();
-        await KillProcess(childProcess.pid);
-        childProcess = StartProcess(config.entry);
+        KillProcess(spawnProcess.pid);
+        spawnProcess = StartProcess(config.entry);
         Log('green', `\n> [${new Date().toLocaleTimeString()}] NODEREL RESTARTING\n`);
       }
     });
@@ -48,33 +46,31 @@ module.exports = async function noderel(cliParams) {
    * SIGQUIT: Keyboard quit
    * SIGTERM: kill command
    */
-  ['SIGQUIT', 'SIGINT', 'SIGTERM', 'exit', 'message'].forEach(evt => {
-    process.on(evt, async (signal) => {
-      Log('red', `\n> [SIGNAL: ${signal}] ${evt}: ${new Date().toLocaleTimeString()}`);
-      Log('magenta', `X [Killed PROCESS ID] ${process.pid}`);
-      Log('magenta', `X [Killed PROCESS ID] ${childProcess.pid}\n`);
-
+  ["SIGTERM", "SIGINT", "SIGHUP", "SIGQUIT"].forEach(evt => {
+    process.on(evt, (signal) => {
+      const localTime = new Date().toLocaleTimeString();
+      Log('red', `\n> [SIGNAL ${localTime}]\x1b[0m ${signal}`);
+      Log('red', `x [KILLED PROCESS ${localTime}]\x1b[0m PID: ${process.pid}`);
       process.removeAllListeners('data');
-
-      childProcess.kill();
-      await KillProcess(childProcess.pid);
-
-      Log('yellow', `\n > [${new Date().toLocaleTimeString()}]\x1b[0m NodeRel End Running`);
-
       setTimeout(() => { process.exit(1); }, 100);
     });
+  });
+
+  process.on('exit', () => {
+    if (spawnProcess) {
+      KillProcess(spawnProcess.pid);
+      Log('red', `x [Parent process exiting]\x1b[0m terminating child...${spawnProcess.pid}\n`);
+    }
   });
 
   // Print some infos on start process
   Log('cyan', `> [NODEREL]\x1b[0m v${pkg.version}`);
   Log('cyan', `> [NODE]\x1b[0m ${process.version}`);
 
-  console.log(
-    '\x1b[33m',
-    `\n > [${new Date().toLocaleTimeString()}]\x1b[0m`,
-    'NodeRel Start Running\x1b[33m'
-  );
+  Log(
+    'yellow',
+    `\n > [${new Date().toLocaleTimeString()}]\x1b[0m NodeRel Start Running\x1b[33m`);
 
-  console.log('\x1b[33m', '> [START COMMAND]\x1b[0m', `node ${config.entry || ResolveEntryFile(config.entry)}`)
-  console.log('\x1b[33m', '> [START WATCHING]\x1b[0m', config.watch + '\n')
+  Log('yellow', `> [START COMMAND]\x1b[0m node ${ResolveEntryFile(config.entry)}`);
+  Log('yellow', `> [START WATCHING]\x1b[0m ${config.watch}\n`);
 }

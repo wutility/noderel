@@ -5,7 +5,7 @@ const exec = require('child_process').exec;
  * @returns 
  */
 module.exports = function FindProcess (processName) {
-  const childProcess = (() => {
+  const spawnProcess = (() => {
     switch (process.platform) {
       case 'win32': return `tasklist /v /fi "STATUS eq running"`
       case 'darwin': return `ps -ax | grep ${processName}`
@@ -15,7 +15,7 @@ module.exports = function FindProcess (processName) {
   })();
 
   return new Promise((resolve, reject) => {
-    exec(childProcess, (err, stdout, stderr) => {
+    exec(spawnProcess, (err, stdout, stderr) => {
       if (err) reject(err)
       resolve(stdout)
     });

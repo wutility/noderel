@@ -38,7 +38,7 @@ noderel(configuration?: Object): void
 |ignore    | `/node_modules\|(^\|[\/\\])\../` | which\'s files or folders should be ignored |
 |wait      | `100`                            | Realod time between changes (ms). |
 |verbose   | `true`                          | Show logs |
-|allow-restart | `false` | allow restart when typing `rs`|
+|allow-restart | `true` | allow restart when typing `rs`|
 
 ## Config file
 ```json
@@ -50,7 +50,7 @@ noderel(configuration?: Object): void
   "ignore": "**/{node_modules,tests,dist,temp,.git}/*",
   "wait": 150,
   "verbose": true,
-  "allowRestart": false // allow restart when typing `rs`
+  "allowRestart": true // allow restart when typing `rs`
 }
 ```
 
