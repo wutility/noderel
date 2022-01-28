@@ -4,4 +4,4 @@ class MonitorEvent extends EventEmitter {}
 
 const Monitor = new MonitorEvent();
 
-module.exports = Monitor
+module.exports = Monitor;

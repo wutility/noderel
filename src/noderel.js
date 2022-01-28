@@ -1,17 +1,18 @@
-const StartProcess = require('./process/StartProcess');
-const KillProcess = require('./process/KillProcess');
-const WatchChanges = require('./monitor/WatchChanges');
+const StartProcess = require('./process/StartProcess'),
+  KillProcess = require('./process/KillProcess'),
+  WatchChanges = require('./monitor/WatchChanges');
 
-const Log = require('./util/Log');
-const ResolveEntryFile = require('./util/ResolveEntryFile');
+const Log = require('./util/Log'),
+  ResolveEntryFile = require('./util/ResolveEntryFile');
 
-const pkg = require('../package.json');
-const LoadConfig = require('./util/LoadConfig');
+const pkg = require('../package.json'),
+  LoadConfig = require('./util/LoadConfig');
 
 /**
  * @param {Object} cliParams 
  */
 module.exports = function noderel(cliParams) {
+
   const config = LoadConfig(cliParams);
   let spawnProcess = StartProcess(config.entry);
 

@@ -1,5 +1,5 @@
-const spawn = require('cross-spawn');
-const debounce = require('../util/debounce')
+const spawn = require('cross-spawn'),
+  debounce = require('../util/debounce');
 
 /**
  * @param {String} entryFile 
