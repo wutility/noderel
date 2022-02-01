@@ -1,9 +1,15 @@
 const express = require('express')
 const app = express()
-const port = 3000
+const port = 3000;
 
-app.get('/', (req, res) => {
-  console.log('Hello NodeRel from console')
+const fn = () => {
+  new Promise.resolve('hello')
+}
+
+app.get('/', async (req, res) => {
+  console.log('Hello v from console')
+  const result = await fn();
+  console.log(result);
   res.send('Hello NodeRel')
 });
 

@@ -14,7 +14,7 @@ module.exports = function StartProcess(entryFile) {
       ...process.env,
     },
     stdio: 'pipe',
-  })
+  });
 
   debounce(spawnProcess, 1000);
 

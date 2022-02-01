@@ -41,7 +41,7 @@ noderel(configuration?: Object): void
 |allow-restart | `true` | allow restart when typing `rs`|
 
 ## Config file
-```json
+```js
 // noderel.json
 // A config file can take any of the command line arguments as JSON key values, for example:
 {

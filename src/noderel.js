@@ -50,23 +50,24 @@ module.exports = function noderel(cliParams) {
   ["SIGTERM", "SIGINT", "SIGHUP", "SIGQUIT"].forEach(evt => {
     process.on(evt, (signal) => {
       const localTime = new Date().toLocaleTimeString();
-      Log('red', `\n> [SIGNAL ${localTime}]\x1b[0m ${signal}`);
-      Log('red', `x [KILLED PROCESS ${localTime}]\x1b[0m PID: ${process.pid}`);
+      Log('green', `\n> [SIGNAL ${signal} ${localTime}]\x1b[0m terminating...`);
+      Log('green', `x [KILL PROCESS ${localTime}]\x1b[0m PID: ${process.pid}`);
       process.removeAllListeners('data');
       setTimeout(() => { process.exit(1); }, 100);
     });
   });
 
   process.on('exit', () => {
+    const localTime = new Date().toLocaleTimeString();
     if (spawnProcess) {
       KillProcess(spawnProcess.pid);
-      Log('red', `x [Parent process exiting]\x1b[0m terminating child...${spawnProcess.pid}\n`);
+      Log('green', `x [KILL CHILD PROCESS ${localTime}]\x1b[0m PID: ${spawnProcess.pid}\n`);
     }
   });
 
   // Print some infos on start process
-  Log('cyan', `> [NODEREL]\x1b[0m v${pkg.version}`);
-  Log('cyan', `> [NODE]\x1b[0m ${process.version}`);
+  Log('cyan', `> [INFO NODEREL]\x1b[0m v${pkg.version}`);
+  Log('cyan', `> [INFO NODE]\x1b[0m ${process.version}`);
 
   Log(
     'yellow',
