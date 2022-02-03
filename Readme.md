@@ -19,7 +19,10 @@ npm install -g noderel
 ## CLI
 ```shell
 # all configs are optional 
-noderel --entry bin/server.js --watch routes,app --wait 150 --verbose=false --allow-restart=true
+noderel --entry bin/server.js --watch routes,app --delay 150 --verbose=false --allow-restart=true
+
+# short
+nnoderel -e tests/server.js -w routes,app -d 150 -v -r
 ```
 
 ## API
@@ -36,7 +39,7 @@ noderel(configuration?: Object): void
 |entry     | `(package.json).main`            | Set entry file |
 |watch     | `.`                              | Set the watch directories or files. |
 |ignore    | `/node_modules\|(^\|[\/\\])\../` | which\'s files or folders should be ignored |
-|wait      | `100`                            | Realod time between changes (ms). |
+|delay      | `100`                            | Realod time between changes (ms). |
 |verbose   | `true`                          | Show logs |
 |allow-restart | `true` | allow restart when typing `rs`|
 
@@ -48,7 +51,7 @@ noderel(configuration?: Object): void
   "entry": "tests/server.js",
   "watch": ["src", "bin"],
   "ignore": "**/{node_modules,tests,dist,temp,.git}/*",
-  "wait": 150,
+  "delay": 150,
   "verbose": true,
   "allowRestart": true // allow restart when typing `rs`
 }

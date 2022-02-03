@@ -1,4 +1,4 @@
-module.exports = function debounce(fun, wait = 200) {
+module.exports = function debounce(fun, delay = 200) {
   let timer;
   return function () {
     const context = this,
@@ -6,6 +6,6 @@ module.exports = function debounce(fun, wait = 200) {
     if (timer) clearTimeout(timer);
     timer = setTimeout(() => {
       fun.apply(context, args);
-    }, wait);
+    }, delay);
   };
 }

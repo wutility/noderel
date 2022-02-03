@@ -12,10 +12,10 @@ const argToArr = arg => {
 }
 
 noderel({
-  watch: argToArr(argv.watch), // --watch app,bin
-  ignore: argToArr(argv.ignore),
-  entry: argv.entry,
-  wait: argv.wait,
-  verbose: argv.verbose,
-  allowRestart: argv['allow-restart']
+  watch: argToArr(argv.watch || argv.w), // --watch app,bin
+  ignore: argToArr(argv.ignore || argv.i),
+  entry: argv.entry || argv.e,
+  delay: argv.delay || argv.d,
+  verbose: argv.verbose || argv.v,
+  allowRestart: argv['allow-restart'] || argv.r
 });

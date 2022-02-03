@@ -24,7 +24,7 @@ module.exports = function noderel(cliParams) {
         spawnProcess = StartProcess(config.entry);
 
         Log('cyan', `\n[${new Date().toLocaleTimeString()}] RESTART DUE CHANGES\n`);
-      }, config.wait);
+      }, config.delay);
     });
 
   if (config.allowRestart) {
@@ -50,8 +50,8 @@ module.exports = function noderel(cliParams) {
   ["SIGTERM", "SIGINT", "SIGHUP", "SIGQUIT"].forEach(evt => {
     process.on(evt, (signal) => {
       const localTime = new Date().toLocaleTimeString();
-      Log('green', `\n> [SIGNAL ${signal} ${localTime}]\x1b[0m terminating...`);
-      Log('green', `x [KILL PROCESS ${localTime}]\x1b[0m PID: ${process.pid}`);
+      Log('green', `\n> [SIGNAL ${signal} ${localTime}]\x1b[0m Noderel terminating...`);
+      Log('green', ` x [KILL PROCESS ${localTime}]\x1b[0m ID: ${process.pid}`);
       process.removeAllListeners('data');
       setTimeout(() => { process.exit(1); }, 100);
     });
@@ -61,7 +61,7 @@ module.exports = function noderel(cliParams) {
     const localTime = new Date().toLocaleTimeString();
     if (spawnProcess) {
       KillProcess(spawnProcess.pid);
-      Log('green', `x [KILL CHILD PROCESS ${localTime}]\x1b[0m PID: ${spawnProcess.pid}\n`);
+      Log('green', ` x [KILL CHILD PROCESS ${localTime}]\x1b[0m ID: ${spawnProcess.pid}\n`);
     }
   });
 
@@ -69,9 +69,7 @@ module.exports = function noderel(cliParams) {
   Log('cyan', `> [INFO NODEREL]\x1b[0m v${pkg.version}`);
   Log('cyan', `> [INFO NODE]\x1b[0m ${process.version}`);
 
-  Log(
-    'yellow',
-    `\n > [${new Date().toLocaleTimeString()}]\x1b[0m NodeRel Start Running\x1b[33m`);
+  Log('yellow', `\n > [${new Date().toLocaleTimeString()}]\x1b[0m NodeRel Start Running\x1b[33m`);
 
   Log('yellow', `> [START COMMAND]\x1b[0m node ${ResolveEntryFile(config.entry)}`);
   Log('yellow', `> [START WATCHING]\x1b[0m ${config.watch}\n`);
