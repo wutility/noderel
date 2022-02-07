@@ -1,9 +1,9 @@
 const spawn = require('cross-spawn'),
-  debounce = require('../util/debounce');
+  Debounce = require('../util/Debounce');
 
 /**
  * @param {String} entryFile 
- * @returns 
+ * @returns SpawnProcess
  */
 module.exports = function StartProcess(entryFile) {
 
@@ -16,7 +16,7 @@ module.exports = function StartProcess(entryFile) {
     stdio: 'pipe',
   });
 
-  debounce(spawnProcess, 1000);
+  Debounce(spawnProcess, 1000);
 
   spawnProcess.stdout.pipe(process.stdout);
   spawnProcess.stderr.pipe(process.stderr);

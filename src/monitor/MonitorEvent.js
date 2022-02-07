@@ -1,7 +1,12 @@
 const { EventEmitter } = require('events');
 
-class MonitorEvent extends EventEmitter {}
+class MonitorEvent extends EventEmitter {
 
-const Monitor = new MonitorEvent();
+  static instance = new MonitorEvent();
+  
+  static getInstance(){
+     return this.instance;
+  }
+}
 
-module.exports = Monitor;
+module.exports = MonitorEvent.getInstance();

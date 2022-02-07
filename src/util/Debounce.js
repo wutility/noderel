@@ -1,4 +1,4 @@
-module.exports = function debounce(fun, delay = 200) {
+module.exports = function Debounce(fun, delay = 200) {
   let timer;
   return function () {
     const context = this,
