@@ -14,6 +14,7 @@ module.exports = function ResolveEntryFile(entryFile) {
       return JSON.parse(fs.readFileSync(path.relative(process.cwd(), 'package.json'), 'utf8')).main
     }
   } catch (err) {
+    console.log('Process Failed: Entry file not found', err.message);
     process.exit(1)
   }
 }

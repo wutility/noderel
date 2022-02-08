@@ -1,4 +1,4 @@
-const ResolveEntryFile = require('./ResolveEntryFile');
+const ResolveEntryFile = require('../util/ResolveEntryFile');
 
 module.exports = function LoadConfig(config) {
   try {

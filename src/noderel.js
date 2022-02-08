@@ -1,7 +1,7 @@
 const Log = require('./util/Log'),
   ResolveEntryFile = require('./util/ResolveEntryFile'),
   pkg = require('../package.json'),
-  LoadConfig = require('./util/LoadConfig');
+  LoadConfig = require('./config/LoadConfig');
 
 const Monitor = require('./monitor/Monitor');
 
