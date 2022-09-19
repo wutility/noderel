@@ -1,14 +1,31 @@
 const Monitor = require('./MonitorEvent'),
+  { watch } = require('chokidar'),
   StartProcess = require('../process/StartProcess'),
   KillProcess = require('../process/KillProcess'),
-  Log = require('../util/Log'),
-  WatchChanges = require('./WatchChanges');
+  Log = require('../util/Log');
 
 let spawnProcess;
 
 Monitor.on('start-spawn-process', config => {
   spawnProcess = StartProcess(config.entry);
-  WatchChanges(config);
+
+  watch(config.watch, {
+    ignored: config.ignore,
+    ignoreInitial: true,
+    ignorePermissionErrors: true,
+    cwd: process.cwd(),
+  })
+    .on('change', () => {
+      setTimeout(() => { Monitor.emit('restart-spawn-process', config) }, config.delay);
+    })
+    .on('error', function (error) {
+      if (error.code === 'EINVAL') {
+        console.error('Watch failed. ' + error.code);
+      } else {
+        console.error('Watch failed: ' + error.message);
+        process.exit(1);
+      }
+    });
 });
 
 Monitor.on('restart-spawn-process', config => {
@@ -20,7 +37,7 @@ Monitor.on('restart-spawn-process', config => {
 Monitor.on('kill-spawn-process', () => {
   const localTime = new Date().toLocaleTimeString();
   KillProcess(spawnProcess?.pid);
-  Log('green', ` x [KILL SPAWN PROCESS ${localTime}]\x1b[0m ID: ${spawnProcess?.pid}\n`);
+  Log('green', ` x [KILL CHILD PROCESS ${localTime}]\x1b[0m ID: ${spawnProcess?.pid}\n`);
 });
 
 /**
