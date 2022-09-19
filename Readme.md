@@ -34,14 +34,14 @@ noderel(configuration?: Object): void
 
 ## Configuration
 
-| Prop     | Default                          | Description                   |
-|----------|----------------------------------|-------------------------------|
-|entry     | `(package.json).main`            | Set entry file |
-|watch     | `.`                              | Set the watch directories or files. |
-|ignore    | `/node_modules\|(^\|[\/\\])\../` | which\'s files or folders should be ignored |
-|delay      | `100`                            | Realod time between changes (ms). |
-|verbose   | `true`                          | Show logs |
-|allow-restart | `true` | allow restart when typing `rs`|
+| Prop                       | Default                          | Description                   |
+|----------------------------|----------------------------------|-------------------------------|
+|`--entry`         or `-e`   | `(package.json).main`            | Set entry file |
+|`--watch`         or `-w`   | `.`                              | Set the watch directories or files. |
+|`ignore`          or `-i`   | `/node_modules\|(^\|[\/\\])\../` | which\'s files or folders should be ignored |
+|`--delay`         or `-d`   | `100`                            | Realod time between changes (ms). |
+|`--verbose`       or `-v`   | `true`                           | Show logs |
+|`--allow-restart` or `-ar`  | `true`                           | allow restart when typing `rs`|
 
 ## Config file
 ```js

@@ -17,5 +17,5 @@ noderel({
   entry: argv.entry || argv.e,
   delay: argv.delay || argv.d,
   verbose: argv.verbose || argv.v,
-  allowRestart: argv['allow-restart'] || argv.r
+  allowRestart: argv['allow-restart'] || argv.ar
 });

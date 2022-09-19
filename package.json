@@ -1,18 +1,17 @@
 {
   "name": "noderel",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Noderel a development tool for Node.js that automatically restarts the node process when a file is modified.",
   "main": "src/noderel.js",
   "bin": {
-    "noderel": "bin/cli",
-    "nr": "bin/cli"
+    "noderel": "bin/cli"
   },
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
     "start": "node bin/cli",
-    "tests": "node bin/cli tests/server.js"
+    "tests": "node bin/cli -e tests/server.js"
   },
   "dependencies": {
     "chokidar": "^3.5.3",
@@ -32,5 +31,16 @@
     "supervisor"
   ],
   "author": "Haikel Fazzani",
-  "license": "MIT"
+  "license": "MIT",
+  "homepage": "https://github.com/wutility/noderel",
+  "bugs": {
+    "url": "https://github.com/wutility/noderel/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wutility/noderel.git"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  }
 }

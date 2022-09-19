@@ -8,8 +8,8 @@ const Monitor = require('./monitor/Monitor');
 /**
  * @param {Object} cliParams 
  */
-module.exports = function noderel(cliParams) {
-  const config = LoadConfig(cliParams);
+module.exports = function noderel(options) {
+  const config = LoadConfig(options);
 
   // Print some infos on start process
   Log('yellow', `> [NODEREL]\x1b[0m v${pkg.version}`);

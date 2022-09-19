@@ -12,15 +12,15 @@ Monitor.on('start-spawn-process', config => {
 });
 
 Monitor.on('restart-spawn-process', config => {
-  KillProcess(spawnProcess.pid);
+  KillProcess(spawnProcess?.pid);
   spawnProcess = StartProcess(config.entry);
   Log('cyan', `\n[${new Date().toLocaleTimeString()}] RESTART DUE CHANGES\n`);
 });
 
 Monitor.on('kill-spawn-process', () => {
   const localTime = new Date().toLocaleTimeString();
-  KillProcess(spawnProcess.pid);
-  Log('green', ` x [KILL SPAWN PROCESS ${localTime}]\x1b[0m ID: ${spawnProcess.pid}\n`);
+  KillProcess(spawnProcess?.pid);
+  Log('green', ` x [KILL SPAWN PROCESS ${localTime}]\x1b[0m ID: ${spawnProcess?.pid}\n`);
 });
 
 /**

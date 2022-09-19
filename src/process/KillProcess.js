@@ -6,5 +6,5 @@ const kill = require('tree-kill');
  * @returns 
  */
 module.exports = function KillProcess(pid, signal = 'SIGTERM') {
-  return kill(pid, signal)
+  if(pid) return kill(pid, signal)
 }

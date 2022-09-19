@@ -2,7 +2,7 @@ const exec = require('child_process').exec;
 
 /**
  * @param {String} processName 
- * @returns 
+ * @returns Promise
  */
 module.exports = function FindProcess (processName) {
   const spawnProcess = (() => {
