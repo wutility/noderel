@@ -19,10 +19,10 @@ npm install -g noderel
 ## CLI
 ```shell
 # all configs are optional 
-noderel --entry bin/server.js --watch routes,app --delay 150 --verbose=false --allow-restart=true
+noderel --entry bin/server.js --watch routes,app --delay 150
 
 # short
-noderel -e tests/server.js -w routes,app -d 150 -v -r
+noderel -e server.js -w routes,app
 ```
 
 ## API
@@ -34,14 +34,14 @@ noderel(configuration?: Object): void
 
 ## Configuration
 
-| Prop                       | Default                          | Description                   |
-|----------------------------|----------------------------------|-------------------------------|
-|`--entry`         or `-e`   | `(package.json).main`            | Set entry file |
-|`--watch`         or `-w`   | `.`                              | Set the watch directories or files. |
-|`--ignore`          or `-i`   | `/node_modules\|(^\|[\/\\])\../` | which\'s files or folders should be ignored |
-|`--delay`         or `-d`   | `100`                            | Realod time between changes (ms). |
-|`--verbose`       or `-v`   | `true`                           | Show logs |
-|`--allow-restart` or `-ar`  | `true`                           | allow restart when typing `rs`|
+| Prop                       | Default                          | Description                                 |
+|----------------------------|----------------------------------|---------------------------------------------|
+|`--entry`         or `-e`   | `(package.json).main`            | Set entry file                              |
+|`--watch`         or `-w`   | `.`                              | Set the watch directories or files.         |
+|`--ignore`        or `-i`   | `node_modules,tests`             | which\'s files or folders should be ignored |
+|`--delay`         or `-d`   | `100`                            | Realod time between changes (ms).           |
+|`--verbose`       or `-v`   | `true`                           | Show logs                                   |
+|`--allow-restart` or `-ar`  | `true`                           | allow restart when typing `rs`              |
 
 ## Config file
 ```js
@@ -50,7 +50,7 @@ noderel(configuration?: Object): void
 {
   "entry": "tests/server.js",
   "watch": ["src", "bin"],
-  "ignore": "**/{node_modules,tests,dist,temp,.git}/*",
+  "ignore": ["node_modules", "tests", ".git"],
   "delay": 150,
   "verbose": true,
   "allowRestart": true // allow restart when typing `rs`

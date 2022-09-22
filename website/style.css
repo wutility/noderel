@@ -1,0 +1,170 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --black: #000;
+  --dark: #15140e;
+  --white: #fff;
+  --light: #fbf0df;
+  --orange: #f89b4b;
+}
+
+body {
+  margin: 0;
+  background-color: var(--black);
+  color: var(--white);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+h1 {
+  font-size: 25pt;
+}
+
+h2 {
+  font-size: 20pt;
+}
+
+p {
+  font-size: 1.2rem;
+}
+
+a {
+  color: var(--light);
+  display: block;
+  font-weight: 500;
+  text-decoration: none;
+  transition: transform 0.1s linear;
+}
+
+section,
+nav {
+  padding: 25px 150px;
+}
+
+section {
+  padding: 50px 150px;
+}
+
+nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  font-size: 1.2rem;
+  padding: 5px;
+}
+
+nav li {
+  list-style: none;
+  padding: 0 15px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 10px;
+}
+
+table,
+td,
+th {
+  border: 1px solid var(--dark);
+}
+
+td,
+th {
+  padding: 10px;
+}
+
+img {
+  border-radius: 7px;
+}
+
+.box,
+pre,
+input {
+  background-color: var(--dark);
+  color: var(--light);
+  padding: 20px;
+  border-radius: 7px;
+  font-family: "Fira Code", "Hack", "Source Code Pro", "SF Mono", "Inconsolata", monospace;
+}
+
+input {
+  background-color: #24242b;
+  border: 1px solid var(--orange);
+  font-size: 1rem;
+  padding: 15px 20px;
+  outline: none;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.m-0 {
+  margin: 0;
+}
+
+.mt-0 {
+  margin-top: 0;
+}
+
+.mt-3 {
+  margin-top: 30px;
+}
+
+.bg-light {
+  background-color: var(--light);
+  color: var(--dark);
+}
+
+.dark {
+  color: var(--dark);
+}
+
+.grid-2 {
+  width: 100%;
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 40px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pl-0 {
+  padding-left: 0;
+}
+
+.pr-0 {
+  padding-right: 0;
+}
+
+@media only screen and (max-width: 600px) {
+  section,
+  nav {
+    padding: 10px 15px;
+  }
+
+  section {
+    padding: 10px 15px;
+  }
+
+  .grid-2 {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}

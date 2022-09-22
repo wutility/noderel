@@ -31,6 +31,10 @@ module.exports = function noderel(options) {
       if (stdin === 'rs') {
         Monitor.emit('restart-spawn-process', config);
       }
+
+      if (stdin === 'stop noderel') {
+        Monitor.emit('kill-spawn-process', config);
+      }
     });
   }  
 }

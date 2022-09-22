@@ -34,10 +34,16 @@ Monitor.on('restart-spawn-process', config => {
   Log('cyan', `\n[${new Date().toLocaleTimeString()}] RESTART DUE CHANGES\n`);
 });
 
-Monitor.on('kill-spawn-process', () => {
+Monitor.on('kill-spawn-process', (signal) => {
+  const signalType = typeof signal === 'string' ? signal : 'SIGQUIT';
   const localTime = new Date().toLocaleTimeString();
+  
+  Log('green', `\n> [SIGNAL ${signalType} ${localTime}]\x1b[0m Noderel terminating...`);
+  Log('green', ` x [KILL PROCESS ${localTime}]\x1b[0m ID: ${process.pid}`);
+
+  process.removeAllListeners('data');
   KillProcess(spawnProcess?.pid);
-  Log('green', ` x [KILL CHILD PROCESS ${localTime}]\x1b[0m ID: ${spawnProcess?.pid}\n`);
+  setTimeout(() => { process.exit(1); }, 100);
 });
 
 /**
@@ -47,16 +53,8 @@ Monitor.on('kill-spawn-process', () => {
    */
 ["SIGTERM", "SIGINT", "SIGHUP", "SIGQUIT"].forEach(evt => {
   process.on(evt, (signal) => {
-    const localTime = new Date().toLocaleTimeString();
-    Log('green', `\n> [SIGNAL ${signal} ${localTime}]\x1b[0m Noderel terminating...`);
-    Log('green', ` x [KILL PROCESS ${localTime}]\x1b[0m ID: ${process.pid}`);
-    process.removeAllListeners('data');
-    setTimeout(() => { process.exit(1); }, 100);
+    Monitor.emit('kill-spawn-process', signal);
   });
-});
-
-process.on('exit', () => {
-  Monitor.emit('kill-spawn-process');
 });
 
 module.exports = Monitor;
