@@ -11,22 +11,41 @@
 }
 
 body {
-  margin: 0;
-  background-color: var(--black);
+  background-color: var(--dark);
   color: var(--white);
+  background: linear-gradient(180deg,#15140e,rgb(26 26 26 / 85%)),url(https://github.com/wutility/noderel/blob/main/capture.png?raw=tr);
+  margin: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
+main {
+  width: 70%;
+  margin: 30px auto;
+  background-color: var(--dark);
+  background: linear-gradient(180deg,#15140e,rgb(26 26 26 / 85%)),url(https://github.com/wutility/noderel/blob/main/capture.png?raw=tr);
+  color: var(--white);
+  border-radius: 7px;
+  box-shadow: 0 4px 10px 0 rgb(0 0 0 / 10%), 0 1px 18px 0 rgb(0 0 0 / 10%), 0 3px 5px 0 rgb(0 0 0 / 14%);
+  overflow: hidden;
+}
+
 h1 {
-  font-size: 25pt;
+  font-size: 30pt;
+  text-transform: capitalize;
 }
 
 h2 {
+  color: var(--light);
   font-size: 20pt;
+}
+
+h3 {
+  font-size: 17pt;
 }
 
 p {
   font-size: 1.2rem;
+  word-wrap: break-word;
 }
 
 a {
@@ -37,20 +56,17 @@ a {
   transition: transform 0.1s linear;
 }
 
-section,
 nav {
-  padding: 25px 150px;
-}
-
-section {
-  padding: 50px 150px;
-}
-
-nav {
-  width: 100%;
+  width: 70%;
+  margin: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 20px 0;
+}
+
+section {
+  padding: 30px 50px;
 }
 
 nav ul {
@@ -94,20 +110,20 @@ img {
 .box,
 pre,
 input {
-  background-color: var(--dark);
-  color: var(--light);
-  padding: 20px;
   border-radius: 7px;
   font-family: "Fira Code", "Hack", "Source Code Pro", "SF Mono", "Inconsolata", monospace;
 }
 
 input {
-  background-color: #24242b;
-  border: 1px solid var(--orange);
+  color: var(--dark);
+  background-color: var(--light);
+  border: 0;
   font-size: 1rem;
   padding: 15px 20px;
   outline: none;
 }
+
+svg {margin-right: 10px;}
 
 .w-100 {
   width: 100%;
@@ -134,15 +150,7 @@ input {
   color: var(--dark);
 }
 
-.grid-2 {
-  width: 100%;
-  max-width: 100%;
-  display: grid;
-  grid-template-columns: 1.2fr .8fr;
-  gap: 40px;
-  justify-content: space-between;
-  align-items: center;
-}
+.d-flex{display: flex;}
 
 .pl-0 {
   padding-left: 0;
@@ -152,7 +160,14 @@ input {
   padding-right: 0;
 }
 
+.text-center {text-align: center;}
+.text-uppercase {text-transform: uppercase;}
+
 @media only screen and (max-width: 600px) {
+  main,nav {
+    width: 95%;
+  }
+
   section,
   nav {
     padding: 10px 15px;

@@ -1,4 +1,4 @@
-const spawn = require('cross-spawn'),
+const {spawn} = require('child_process'),
   Debounce = require('../util/Debounce');
 
 /**
