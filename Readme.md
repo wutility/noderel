@@ -25,14 +25,14 @@ noderel --entry bin/server.js --watch routes,app --delay 150
 noderel -e server.js -w routes,app
 ```
 
-## API
+### API
 ```js
 const noderel = require('noderel');
 
 noderel(configuration?: Object): void
 ```
 
-## Configuration
+### Configuration
 
 | Prop                      | Default                | Description                                 |
 |---------------------------|------------------------|---------------------------------------------|
@@ -45,7 +45,7 @@ noderel(configuration?: Object): void
 |`--verbose`       or `-V`  | `true`                 | Show logs                                   |
 |`--allow-restart` or `-R`  | `true`                 | allow restart when typing `rs`              |
 
-## Config file
+### Configuration file
 ```js
 // noderel.json
 // A config file can take any of the command line arguments as JSON key values, for example:

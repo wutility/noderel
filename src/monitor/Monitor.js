@@ -31,7 +31,7 @@ Monitor.on('start-spawn-process', config => {
 Monitor.on('restart-spawn-process', config => {
   KillProcess(spawnProcess?.pid);
   spawnProcess = StartProcess(config.entry);
-  Log('cyan', `\n[${new Date().toLocaleTimeString()}] RESTART DUE CHANGES\n`);
+  if(config.verbose) Log('cyan', `\n[${new Date().toLocaleTimeString()}] RESTART DUE CHANGES\n`);
 });
 
 Monitor.on('kill-spawn-process', (signal) => {
