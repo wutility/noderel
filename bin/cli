@@ -12,8 +12,29 @@ const argToArr = arg => {
   }
 }
 
+if (argv.help || argv.h) {
+  console.log("\x1b[33m", `
+noderel <command>
+
+Usage:
+
+| Prop                  | Default             | Description                                 |
+|-----------------------|---------------------|---------------------------------------------|
+|--help          or -h  | -                   | display usage info for all commands         |
+|--version       or -v  | -                   | display package version                     |
+|--entry         or -e  | (package.json).main | Set entry file                              |
+|--watch         or -w  | .                   | Set the watch directories or files.         |
+|--ignore        or -i  | node_modules,tests  | which's files or folders should be ignored  |
+|--delay         or -d  | 100                 | Realod time between changes (ms).           |
+|--verbose       or -V  | true                | Show logs                                   |
+|--allow-restart or -R  | true                | allow restart when typing rs                |
+`,
+    '\nnoderel@' + pkg.version, "\x1b[0m");
+  return
+}
 if (argv.version || argv.v) {
   if (pkg.name === 'noderel') console.log('v' + pkg.version);
+  return
 }
 else {
   noderel({

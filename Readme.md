@@ -34,15 +34,16 @@ noderel(configuration?: Object): void
 
 ## Configuration
 
-| Prop                       | Default                          | Description                                 |
-|----------------------------|----------------------------------|---------------------------------------------|
-|`--version`       or `-v`   | `-`                              | Show package version                        |
-|`--entry`         or `-e`   | `(package.json).main`            | Set entry file                              |
-|`--watch`         or `-w`   | `.`                              | Set the watch directories or files.         |
-|`--ignore`        or `-i`   | `node_modules,tests`             | which\'s files or folders should be ignored |
-|`--delay`         or `-d`   | `100`                            | Realod time between changes (ms).           |
-|`--verbose`       or `-V`   | `true`                           | Show logs                                   |
-|`--allow-restart` or `-R`   | `true`                           | allow restart when typing `rs`              |
+| Prop                      | Default                | Description                                 |
+|---------------------------|------------------------|---------------------------------------------|
+|`--help`          or `-h`  | `-`                    | display usage info for all commands         |
+|`--version`       or `-v`  | `-`                    | display package version                     |
+|`--entry`         or `-e`  | `(package.json).main`  | Set entry file                              |
+|`--watch`         or `-w`  | `.`                    | Set the watch directories or files.         |
+|`--ignore`        or `-i`  | `node_modules,tests`   | which\'s files or folders should be ignored |
+|`--delay`         or `-d`  | `100`                  | Realod time between changes (ms).           |
+|`--verbose`       or `-V`  | `true`                 | Show logs                                   |
+|`--allow-restart` or `-R`  | `true`                 | allow restart when typing `rs`              |
 
 ## Config file
 ```js
