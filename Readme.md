@@ -36,12 +36,13 @@ noderel(configuration?: Object): void
 
 | Prop                       | Default                          | Description                                 |
 |----------------------------|----------------------------------|---------------------------------------------|
+|`--version`       or `-v`   | `-`                              | Show package version                        |
 |`--entry`         or `-e`   | `(package.json).main`            | Set entry file                              |
 |`--watch`         or `-w`   | `.`                              | Set the watch directories or files.         |
 |`--ignore`        or `-i`   | `node_modules,tests`             | which\'s files or folders should be ignored |
 |`--delay`         or `-d`   | `100`                            | Realod time between changes (ms).           |
-|`--verbose`       or `-v`   | `true`                           | Show logs                                   |
-|`--allow-restart` or `-ar`  | `true`                           | allow restart when typing `rs`              |
+|`--verbose`       or `-V`   | `true`                           | Show logs                                   |
+|`--allow-restart` or `-R`   | `true`                           | allow restart when typing `rs`              |
 
 ## Config file
 ```js

@@ -1,6 +1,6 @@
 {
   "name": "noderel",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Noderel a development tool for Node.js that automatically restarts the node process when a file is modified.",
   "main": "src/noderel.js",
   "bin": {
@@ -10,8 +10,7 @@
     "access": "public"
   },
   "scripts": {
-    "docs": "servino -r docs -w docs",
-    "start": "node bin/cli",
+    "docs": "servino -r docs -w docs",    
     "tests": "node bin/cli -e tests/server.js"
   },
   "dependencies": {
@@ -43,6 +42,6 @@
     "url": "git+https://github.com/wutility/noderel.git"
   },
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=12.0.0"
   }
 }

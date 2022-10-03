@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
 const argv = require('minimist')(process.argv.slice(2));
-const noderel = require('../src/noderel')
+const noderel = require('../src/noderel');
+const pkg = require('../package.json');
 
 const argToArr = arg => {
   try {
@@ -11,11 +12,17 @@ const argToArr = arg => {
   }
 }
 
-noderel({
-  watch: argToArr(argv.watch || argv.w), // --watch app,bin
-  ignore: argToArr(argv.ignore || argv.i),
-  entry: argv.entry || argv.e,
-  delay: argv.delay || argv.d,
-  verbose: argv.verbose || argv.v,
-  allowRestart: argv['allow-restart'] || argv.ar
-});
+if (argv.version || argv.v) {
+  if (pkg.name === 'noderel') console.log('v' + pkg.version);
+}
+else {
+  noderel({
+    watch: argToArr(argv.watch || argv.w), // --watch app,bin
+    ignore: argToArr(argv.ignore || argv.i),
+    entry: argv.entry || argv.e,
+    delay: argv.delay || argv.d,
+    // version: argv.version || argv.v,
+    verbose: argv.verbose || argv.V,
+    allowRestart: argv['allow-restart'] || argv.R
+  });
+}

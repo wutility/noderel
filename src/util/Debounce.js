@@ -1,5 +1,4 @@
 /**
- * 
  * @param {Function} fun 
  * @param {number} delay 
  * @returns Function
