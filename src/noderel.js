@@ -3,6 +3,7 @@ const Log = require('./util/Log'),
   LoadConfig = require('./LoadConfig');
 
 const Monitor = require('./monitor/Monitor');
+const memoryUsage = require('./util/memoryUsage');
 
 /**
  * @param {Object} options 
@@ -12,9 +13,9 @@ module.exports = function noderel(options) {
 
   if (config.verbose) {
     // Print some infos on start process
+    Log('yellow', `> [${new Date().toLocaleTimeString()}]\x1b[0m NodeRel start running\x1b[33m`);
     Log('yellow', `> [NODEREL]\x1b[0m v${pkg.version}`);
-    Log('yellow', `> [NODE]\x1b[0m ${process.version}`);
-    Log('yellow', `> [${new Date().toLocaleTimeString()}]\x1b[0m NodeRel Start Running\x1b[33m`);
+    Log('yellow', `> [TOTAL MEMORY USAGE]\x1b[0m ${memoryUsage()}`);
     Log('yellow', `> [START COMMAND]\x1b[0m ${config.command.join(' ')}`);
     Log('yellow', `> [START WATCHING]\x1b[0m ${config.watch}\n`);
   }
