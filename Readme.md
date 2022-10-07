@@ -32,7 +32,7 @@ const noderel = require('noderel');
 noderel(configuration?: Object): void
 ```
 
-## Commands
+## CLI options
 
 | Prop                      | Default                    | Description                                 |
 |---------------------------|----------------------------|---------------------------------------------|
