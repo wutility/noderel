@@ -13,16 +13,16 @@
 body {
   background-color: var(--dark);
   color: var(--white);
-  background: linear-gradient(180deg,#15140e,rgb(26 26 26 / 85%)),url(https://github.com/wutility/noderel/blob/main/capture.png?raw=tr);
+  background: linear-gradient(180deg, #15140e, rgb(26 26 26 / 85%)), url(https://github.com/wutility/noderel/blob/main/capture.png?raw=tr);
   margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: 'Inter', sans-serif;  
 }
 
 main {
   width: 70%;
   margin: 30px auto;
   background-color: var(--dark);
-  background: linear-gradient(180deg,#15140e,rgb(26 26 26 / 85%)),url(https://github.com/wutility/noderel/blob/main/capture.png?raw=tr);
+  background: linear-gradient(180deg, #15140e, rgb(26 26 26 / 85%)), url(https://github.com/wutility/noderel/blob/main/capture.png?raw=tr);
   color: var(--white);
   border-radius: 7px;
   box-shadow: 0 4px 10px 0 rgb(0 0 0 / 10%), 0 1px 18px 0 rgb(0 0 0 / 10%), 0 3px 5px 0 rgb(0 0 0 / 14%);
@@ -30,8 +30,10 @@ main {
 }
 
 h1 {
-  font-size: 30pt;
+  font-size: 45pt;
   text-transform: capitalize;
+  font-family: 'Bebas Neue', cursive;
+  letter-spacing: 2px;
 }
 
 h2 {
@@ -105,16 +107,19 @@ th {
 
 img {
   border-radius: 7px;
+  object-fit: contain;
+  max-width: -webkit-fill-available;
 }
 
 .box,
-pre,
-input {
+pre {
   border-radius: 7px;
   font-family: "Fira Code", "Hack", "Source Code Pro", "SF Mono", "Inconsolata", monospace;
 }
 
-input {
+pre {
+  width: fit-content;
+  margin: auto;
   color: var(--dark);
   background-color: var(--light);
   border: 0;
@@ -123,7 +128,9 @@ input {
   outline: none;
 }
 
-svg {margin-right: 10px;}
+svg {
+  margin-right: 10px;
+}
 
 .w-100 {
   width: 100%;
@@ -150,7 +157,9 @@ svg {margin-right: 10px;}
   color: var(--dark);
 }
 
-.d-flex{display: flex;}
+.d-flex {
+  display: flex;
+}
 
 .pl-0 {
   padding-left: 0;
@@ -160,11 +169,22 @@ svg {margin-right: 10px;}
   padding-right: 0;
 }
 
-.text-center {text-align: center;}
-.text-uppercase {text-transform: uppercase;}
+.p-0 {
+  padding: 0;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
 
 @media only screen and (max-width: 600px) {
-  main,nav {
+
+  main,
+  nav {
     width: 95%;
   }
 

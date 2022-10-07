@@ -1,6 +1,6 @@
 const Log = require('./util/Log'),
   pkg = require('../package.json'),
-  LoadConfig = require('./config/LoadConfig');
+  LoadConfig = require('./LoadConfig');
 
 const Monitor = require('./monitor/Monitor');
 

@@ -1,4 +1,4 @@
-const ResolveEntryFile = require('../util/ResolveEntryFile');
+const ResolveEntryFile = require('./util/ResolveEntryFile');
 
 /**
  * @param {Object} options 
