@@ -7,7 +7,7 @@ const Monitor = require('./MonitorEvent'),
 let spawnProcess;
 
 Monitor.on('start-spawn-process', config => {
-  spawnProcess = StartProcess(config.entry);
+  spawnProcess = StartProcess(config.command);
 
   watch(config.watch, {
     ignored: config.ignore,
@@ -30,7 +30,7 @@ Monitor.on('start-spawn-process', config => {
 
 Monitor.on('restart-spawn-process', config => {
   KillProcess(spawnProcess?.pid);
-  spawnProcess = StartProcess(config.entry);
+  spawnProcess = StartProcess(config.command);
   if(config.verbose) Log('cyan', `\n[${new Date().toLocaleTimeString()}] RESTART DUE CHANGES\n`);
 });
 

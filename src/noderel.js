@@ -1,5 +1,4 @@
 const Log = require('./util/Log'),
-  ResolveEntryFile = require('./util/ResolveEntryFile'),
   pkg = require('../package.json'),
   LoadConfig = require('./config/LoadConfig');
 
@@ -11,12 +10,12 @@ const Monitor = require('./monitor/Monitor');
 module.exports = function noderel(options) {
   const config = LoadConfig(options);
 
-  if(config.verbose) {
+  if (config.verbose) {
     // Print some infos on start process
     Log('yellow', `> [NODEREL]\x1b[0m v${pkg.version}`);
     Log('yellow', `> [NODE]\x1b[0m ${process.version}`);
     Log('yellow', `> [${new Date().toLocaleTimeString()}]\x1b[0m NodeRel Start Running\x1b[33m`);
-    Log('yellow', `> [START COMMAND]\x1b[0m node ${ResolveEntryFile(config.entry)}`);
+    Log('yellow', `> [START COMMAND]\x1b[0m ${config.command.join(' ')}`);
     Log('yellow', `> [START WATCHING]\x1b[0m ${config.watch}\n`);
   }
 
@@ -37,5 +36,5 @@ module.exports = function noderel(options) {
         Monitor.emit('kill-spawn-process', config);
       }
     });
-  }  
+  }
 }

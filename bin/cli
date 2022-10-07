@@ -4,6 +4,14 @@ const argv = require('minimist')(process.argv.slice(2));
 const noderel = require('../src/noderel');
 const pkg = require('../package.json');
 
+const validArgs = ['allow-restart', 'R', 'verbose', 'V', 'override', 'O', 'delay', 'd', 'entry', 'e', 'watch', 'w', 'ignore', 'i']
+const isValid = validArgs.some(arg => argv[arg]);
+
+if (!isValid) {
+  console.error('Please enter a valid command!');
+  return
+}
+
 const argToArr = arg => {
   try {
     return arg ? arg.split(',') : arg
@@ -18,16 +26,17 @@ noderel <command>
 
 Usage:
 
-| Prop                  | Default             | Description                                 |
-|-----------------------|---------------------|---------------------------------------------|
-|--help          or -h  | -                   | display usage info for all commands         |
-|--version       or -v  | -                   | display package version                     |
-|--entry         or -e  | (package.json).main | Set entry file                              |
-|--watch         or -w  | .                   | Set the watch directories or files.         |
-|--ignore        or -i  | node_modules,tests  | which's files or folders should be ignored  |
-|--delay         or -d  | 100                 | Realod time between changes (ms).           |
-|--verbose       or -V  | true                | Show logs                                   |
-|--allow-restart or -R  | true                | allow restart when typing rs                |
+| Prop                  | Default                  | Description                                 |
+|-----------------------|--------------------------|---------------------------------------------|
+|--help          or -h  | -                        | display usage info for all commands         |
+|--version       or -v  | -                        | display package version                     |
+|--entry         or -e  | (package.json).main      | Set entry file                              |
+|--watch         or -w  | .                        | Set the watch directories or files.         |
+|--ignore        or -i  | node_modules,tests       | which's files or folders should be ignored  |
+|--delay         or -d  | 100                      | Realod time between changes (ms).           |
+|--verbose       or -V  | true                     | Show logs                                   |
+|--allow-restart or -R  | true                     | allow restart when typing rs                |
+|--override      or -O  | node (package.json).main | override the default command                |
 `,
     '\nnoderel@' + pkg.version, "\x1b[0m");
   return
@@ -42,7 +51,7 @@ else {
     ignore: argToArr(argv.ignore || argv.i),
     entry: argv.entry || argv.e,
     delay: argv.delay || argv.d,
-    // version: argv.version || argv.v,
+    override: argv.override || argv.O,
     verbose: argv.verbose || argv.V,
     allowRestart: argv['allow-restart'] || argv.R
   });

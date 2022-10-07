@@ -1,6 +1,6 @@
 {
   "name": "noderel",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Noderel a development tool for Node.js that automatically restarts the node process when a file is modified.",
   "main": "src/noderel.js",
   "bin": {
@@ -33,7 +33,7 @@
   ],
   "author": "Haikel Fazzani",
   "license": "MIT",
-  "homepage": "https://github.com/wutility/noderel",
+  "homepage": "https://wutility.github.io/noderel",
   "bugs": {
     "url": "https://github.com/wutility/noderel/issues"
   },

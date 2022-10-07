@@ -1,5 +1,5 @@
 # ↻ ♾️ NodeRel
-NodeRel is a tool that automatically restarting the node application when file changes.
+[NodeRel](https://wutility.github.io/noderel) is a tool that automatically restarting the node application when file changes.
 
 ![downloads](https://badgen.net/npm/dt/noderel) ![version](http://img.shields.io/npm/v/noderel.svg?style=flat-square)
 
@@ -22,7 +22,7 @@ npm install -g noderel
 noderel --entry bin/server.js --watch routes,app --delay 150
 
 # short
-noderel -e server.js -w routes,app
+noderel -e server.js -w routes,app -d 150
 ```
 
 ### API
@@ -32,18 +32,19 @@ const noderel = require('noderel');
 noderel(configuration?: Object): void
 ```
 
-### Configuration
+### Commands
 
-| Prop                      | Default                | Description                                 |
-|---------------------------|------------------------|---------------------------------------------|
-|`--help`          or `-h`  | `-`                    | display usage info for all commands         |
-|`--version`       or `-v`  | `-`                    | display package version                     |
-|`--entry`         or `-e`  | `(package.json).main`  | Set entry file                              |
-|`--watch`         or `-w`  | `.`                    | Set the watch directories or files.         |
-|`--ignore`        or `-i`  | `node_modules,tests`   | which\'s files or folders should be ignored |
-|`--delay`         or `-d`  | `100`                  | Realod time between changes (ms).           |
-|`--verbose`       or `-V`  | `true`                 | Show logs                                   |
-|`--allow-restart` or `-R`  | `true`                 | allow restart when typing `rs`              |
+| Prop                      | Default                    | Description                                 |
+|---------------------------|----------------------------|---------------------------------------------|
+|`--help`          or `-h`  | `-`                        | display usage info for all commands         |
+|`--version`       or `-v`  | `-`                        | display package version                     |
+|`--entry`         or `-e`  | `(package.json).main`      | Set entry file                              |
+|`--watch`         or `-w`  | `.`                        | Set the watch directories or files.         |
+|`--ignore`        or `-i`  | `node_modules,tests`       | which\'s files or folders should be ignored |
+|`--delay`         or `-d`  | `100`                      | Realod time between changes (ms).           |
+|`--verbose`       or `-V`  | `true`                     | Show logs                                   |
+|`--allow-restart` or `-R`  | `true`                     | allow restart when typing `rs`              |
+|`--override`      or `-O`  | `node (package.json).main` | override the default command                |
 
 ### Configuration file
 ```js
@@ -55,9 +56,16 @@ noderel(configuration?: Object): void
   "ignore": ["node_modules", "tests", ".git"],
   "delay": 150,
   "verbose": true,
-  "allowRestart": true // allow restart when typing `rs`
+  "allowRestart": true, // allow restart when typing `rs`
+  "override": "python3 app.py",
 }
 ```
+
+## Built with
+- [Spawn childprocess](https://nodejs.org/docs/latest-v16.x/api/child_process.html#class-childprocess)
+- [tree-kill](https://www.npmjs.com/package/tree-kill)
+- [minimist](https://www.npmjs.com/package/minimist)
+- [chokidar](https://www.npmjs.com/package/chokidar)
 
 ## Capture
 ![Capture](capture.png)
