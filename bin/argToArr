@@ -1,0 +1,7 @@
+module.exports = arg => {
+  try {
+    return arg ? arg.split(',') : arg
+  } catch (error) {
+    return null
+  }
+}

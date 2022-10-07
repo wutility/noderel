@@ -8,6 +8,7 @@
   --white: #fff;
   --light: #fbf0df;
   --orange: #f89b4b;
+  --blue: #4b65f8;
 }
 
 body {
@@ -148,6 +149,10 @@ svg {
   margin-top: 30px;
 }
 
+.ml-1 {
+  margin-left: 10px;
+}
+
 .bg-light {
   background-color: var(--light);
   color: var(--dark);
@@ -156,6 +161,8 @@ svg {
 .dark {
   color: var(--dark);
 }
+
+.blue {color: var(--blue);}
 
 .d-flex {
   display: flex;
