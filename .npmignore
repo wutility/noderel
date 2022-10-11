@@ -22,4 +22,4 @@ package-lock.json
 rollup.config.js
 bs-config.js
 noderel.json
-capture.png
+*.png

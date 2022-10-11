@@ -19,6 +19,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter&family=Bebas+Neue&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="node_modules/@glorious/demo/dist/gdemo.min.css">
+  <script src="node_modules/@glorious/demo/dist/gdemo.min.js"></script>
 </head>
 
 <body>
@@ -73,7 +75,9 @@
   </main>
 
   <main class="shadow-0">
-    <img class="capture br7 p-2 bg-gray" src="https://github.com/wutility/noderel/blob/main/2022-10-07.png?raw=true" alt="noderel">
+    <div id="animation"></div>
+    <img class="capture br7 p-2 bg-gray" src="https://github.com/wutility/noderel/blob/main/2022-10-07.png?raw=true"
+      alt="noderel">
   </main>
 
   <footer class="text-center text-uppercase">
@@ -87,6 +91,8 @@
       y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
     })(window, document, "clarity", "script", "dz3h1q2ynk");
   </script>
+
+  <script src="app.js"></script>
 </body>
 
 </html>

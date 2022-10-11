@@ -35,14 +35,14 @@ Monitor.on('restart-spawn-process', config => {
 });
 
 Monitor.on('kill-spawn-process', (signal) => {
-  const signalType = typeof signal === 'string' ? signal : 'SIGQUIT';
+  const signalType = signal && typeof signal === 'string' ? signal : 'SIGQUIT';
   const localTime = new Date().toLocaleTimeString();
   
   Log('green', `\n> [SIGNAL ${signalType} ${localTime}]\x1b[0m Noderel terminating...`);
   Log('green', ` x [KILL PROCESS ${localTime}]\x1b[0m ID: ${process.pid}`);
 
   process.removeAllListeners('data');  
-  setTimeout(() => { process.exit(1); }, 100);
+  setTimeout(() => { process.exit(0); }, 100);
 });
 
 /**

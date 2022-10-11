@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const argv = require('minimist')(process.argv.slice(2));
-const noderel = require('../src/noderel');
+const Noderel = require('../src/noderel');
 const pkg = require('../package.json');
 const helpStr = require('./help');
 const argToArr = require('./argToArr');
@@ -23,7 +23,7 @@ if (argv.version || argv.v) {
   return
 }
 else {
-  noderel({
+  const noderel= Noderel({
     watch: argToArr(argv.watch || argv.w), // --watch app,bin
     ignore: argToArr(argv.ignore || argv.i),
     entry: argv.entry || argv.e,
@@ -32,4 +32,6 @@ else {
     verbose: argv.verbose || argv.V,
     allowRestart: argv['allow-restart'] || argv.R
   });
+
+  noderel.start();
 }

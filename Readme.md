@@ -25,14 +25,16 @@ noderel --entry bin/server.js --watch routes,app --delay 150
 noderel -e server.js -w routes,app -d 150
 ```
 
-## API
+# API
 ```js
-const noderel = require('noderel');
+const Noderel = require('noderel');
+const noderel = Noderel(configuration?: Object): void
 
-noderel(configuration?: Object): void
+noderel.start()
+noderel.stop()
 ```
 
-## CLI options
+# CLI options
 
 | Prop                      | Default                    | Description                                 |
 |---------------------------|----------------------------|---------------------------------------------|
@@ -46,7 +48,7 @@ noderel(configuration?: Object): void
 |`--allow-restart` or `-R`  | `true`                     | allow restart when typing `rs`              |
 |`--override`      or `-O`  | `node (package.json).main` | override the default command                |
 
-## Configuration file
+# Configuration file
 ```js
 // noderel.json
 // A config file can take any of the command line arguments as JSON key values, for example:
@@ -61,13 +63,13 @@ noderel(configuration?: Object): void
 }
 ```
 
-## Built with
+# Built with
 - [Spawn childprocess](https://nodejs.org/docs/latest-v16.x/api/child_process.html#class-childprocess)
 - [tree-kill](https://www.npmjs.com/package/tree-kill)
 - [minimist](https://www.npmjs.com/package/minimist)
 - [chokidar](https://www.npmjs.com/package/chokidar)
 
-## Capture
+# Capture
 ![Capture](capture.png)
 
 # License
