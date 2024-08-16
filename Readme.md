@@ -1,7 +1,8 @@
 # ↻ ♾️ NodeRel
 [NodeRel](https://wutility.github.io/noderel) is a tool that automatically restarting the node application when file changes.
 
-![downloads](https://badgen.net/npm/dt/noderel) ![version](http://img.shields.io/npm/v/noderel.svg?style=flat-square)
+![downloads](https://badgen.net/npm/dt/noderel) ![version](http://img.shields.io/npm/v/noderel.svg)
+
 
 - Fast and simple to use.
 - Automatic re-running.
